@@ -1,8 +1,7 @@
-
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import parse_qs, quote
 import html
-
+import os
 PAGE = """<!doctype html>
 <html lang="uz">
 <head>
@@ -40,4 +39,5 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(PAGE.encode("utf-8"))
 
-HTTPServer(("0.0.0.0", 8000), Handler).serve_forever()
+port = int(os.environ.get("PORT", "10000"))
+HTTPServer(("0.0.0.0", port), Handler).serve_forever()
